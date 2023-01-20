@@ -16,7 +16,7 @@ module.exports.getDataFromDBService = () => {
 //create data
 module.exports.createUserDBService = (userDetails) => {
   return new Promise(function myFn(resolve, reject) {
-    var userModelData = new userModel();
+    var userModelData = new userModel(userDetails);
 
     userModelData.first_name = userDetails.first_name;
     userModelData.Last_name = userDetails.Last_name;
@@ -29,6 +29,35 @@ module.exports.createUserDBService = (userDetails) => {
         reject(false);
       } else {
         resolve(true);
+      }
+    });
+  });
+};
+
+module.exports.updateOneUserDBService = (id, userDetails) => {
+  console.log(userDetails);
+  return new Promise(function myFn(resolve, reject) {
+    userModel.findByIdAndUpdate(
+      id,
+      userDetails,
+      function returnData(error, result) {
+        if (error) {
+          reject(false);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+};
+
+module.exports.removeOneUserDBService = (id) => {
+  return new Promise(function myFn(resolve, reject) {
+    userModel.findByIdAndDelete(id, function returnData(error, result) {
+      if (error) {
+        reject(false);
+      } else {
+        resolve(result);
       }
     });
   });
