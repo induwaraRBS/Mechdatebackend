@@ -1,7 +1,7 @@
 var userService = require("./userService");
 
 var getDataControllerfn = async (req, res) => {
-  var employee = await userService.getDataFromDBservice();
+  var employee = await userService.getDataFromDBService();
   res.send({ status: true, data: employee });
 };
 
@@ -34,7 +34,7 @@ var updateUserController = async (req, res) => {
 var deleteUserController = async (req, res) => {
   console.log(req.params.id);
 
-  var result = await userService.removeUserDBService(req, params.id);
+  var result = await userService.removeOneUserDBService(req.params.id);
 
   if (result) {
     res.send({ status: true, message: "User Deleted" });
